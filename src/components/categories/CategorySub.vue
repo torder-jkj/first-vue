@@ -3,8 +3,8 @@
     <div class="category" v-for="cate in subCategoryList" :key="cate.id">
       <p
         class="category-text"
-        @click="changeSubCate(cate)"
-        :class="{active:getSubCateId === cate.id}"
+        @click="changeSubCategory(cate)"
+        :class="getSubCategoryId(cate.id)"
       >{{cate.name}}</p>
       <div class="bar"></div>
     </div>
@@ -12,27 +12,22 @@
 </template>
 
 <script setup lang='ts'>
-import { subCategory } from "@/interfaces/MockDataInterface";
-import { computed, ComputedRef } from "@vue/runtime-core";
 import { defineProps } from "vue";
 // eslint-disable-next-line no-unused-vars
 const props = defineProps({
   subCategoryList: {
     type: Array,
   },
+  getSubCategoryId: {
+    type: Function as any,
+  },
+  changeSubCategory: {
+    type: Function,
+  },
 });
-
-// Category Store
-import { useStore } from "vuex";
-const store = useStore();
-
-const getSubCateId: ComputedRef = computed(
-  (): string => store.getters["category/getSubCategoryId"]
-);
-console.log(getSubCateId);
-const changeSubCate = (cate: subCategory): void => {
-  store.commit("category/changeSubCate", cate);
-};
+const getSubCategoryId = (id: string) => ({
+  active: props.getSubCategoryId() === id,
+});
 </script>
 
 <style scoped>

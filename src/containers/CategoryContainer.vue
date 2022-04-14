@@ -6,13 +6,17 @@
       :changeMainCategory="changeMainCategory"
       :getMainCategoryId="getMainCategoryId"
     />
-    <CategorySub :subCategoryList="subCategoryList" />
+    <CategorySub
+      :subCategoryList="subCategoryList"
+      :getSubCategoryId="getSubCategoryId"
+      :changeSubCategory="changeSubCategory"
+    />
   </div>
 </template>
 <script setup lang="ts">
 import { CategoryMain, CategorySub } from "@/components/categories";
 import data from "@/assets/mock.json";
-import { mainCategory } from "@/interfaces/MockDataInterface";
+import { mainCategory, subCategory } from "@/interfaces/MockDataInterface";
 import { useStore } from "vuex";
 import { computed, ComputedRef } from "@vue/runtime-core";
 const store = useStore();
@@ -32,6 +36,8 @@ const changeMainCategory = (cate: mainCategory) => {
 };
 
 // Category Sub
+const getSubCategoryId = (): string =>
+  store.getters["category/getSubCategoryId"];
 const subCategoryList: ComputedRef = computed(() =>
   data.subCategories.filter(
     (cate) =>
@@ -39,6 +45,9 @@ const subCategoryList: ComputedRef = computed(() =>
       store.getters["category/getMainCategoryId"]
   )
 );
+const changeSubCategory = (cate: subCategory): void => {
+  store.commit("category/changeSubCate", cate);
+};
 </script>
 
 <style scoped>
