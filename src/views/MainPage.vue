@@ -1,13 +1,14 @@
 <template>
-  <div id="container">
-    <Category />
+  <div class="main-page-container">
+    <CategoryContainer />
+    <GoodsContainer />
   </div>
 </template>
 <script setup>
-import { Category } from "@/containers";
+import { CategoryContainer, GoodsContainer } from "@/containers";
 </script>
 <style scoped>
-#container {
+.main-page-container {
   position: fixed;
   bottom: 0;
   left: 0;

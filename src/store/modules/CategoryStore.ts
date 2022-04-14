@@ -1,32 +1,28 @@
-import { mock, subCategory } from './../../interfaces/data';
-import { category } from '@/interfaces/category';
+import { mainCategory, subCategory } from '@/interfaces/MockDataInterface';
+import { categoryState } from '@/interfaces/store/CategoryStoreInterface';
 import { Module } from 'vuex';
 import mockData from '@/assets/mock.json';
-import { findSubCategory } from '@/services/category';
 
-// const data:mock = mockData;
-
-const categoryStore: Module<category, any> = {
+const categoryStore: Module<categoryState, any> = {
   namespaced: true,
   state: {
-    main: mockData.categories[0].id,
-    sub: mockData.subCategories[0].id,
+    selectMainCategory: mockData.categories[0],
+    selectSubCategory: mockData.subCategories[0],
   },
   mutations: {
-    changeMainCate(state, payload) {
-      state.main = payload;
-      state.sub = findSubCategory(mockData.subCategories, state.main);
+    changeMainCate(state, payload: mainCategory) {
+      state.selectMainCategory = payload;
     },
-    changeSubCate(state, payload) {
-      state.sub = payload;
+    changeSubCate(state, payload: subCategory) {
+      state.selectSubCategory = payload;
     },
   },
   getters: {
-    selectMainCateId(state) {
-      return state.main;
+    getMainCategoryId(state) {
+      return state.selectMainCategory.id;
     },
-    selectSubCateId(state) {
-      return state.sub;
+    getSubCategoryId(state) {
+      return state.selectSubCategory.id;
     },
   },
 };

@@ -1,4 +1,4 @@
-export interface mock {
+export interface mockDataType {
   store: store[];
   table: table[];
   categories: mainCategory[];
